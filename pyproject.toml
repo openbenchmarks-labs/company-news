@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openbenchmarks-company-news"
+version = "0.1.0"
+description = "Reproducible benchmark runner for company-news search APIs"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "boto3>=1.40,<2",
+  "openai>=2.0,<3",
+  "pydantic>=2.8,<3",
+  "python-dotenv>=1.0,<2",
+  "requests>=2.32,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9", "ruff>=0.12,<1"]
+
+[project.scripts]
+company-news = "company_news.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["company_news*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
