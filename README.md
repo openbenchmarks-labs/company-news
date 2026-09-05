@@ -1,4 +1,4 @@
-# Company News Search Benchmark: Web Search APIs vs News Index APIs (2026)
+# Company News Search Benchmark
 
 Open, independent benchmark of company news APIs for AI agents. General web
 search APIs and dedicated news indexes answer the same 300 company-news
