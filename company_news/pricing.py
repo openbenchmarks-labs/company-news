@@ -16,7 +16,7 @@ USD_PER_REQUEST = {
     "tinyfish": 0.0,
     "firecrawl": 0.005,
     "predictleads_category": 0.040,
-    "datahyena": 0.050,
+    "datahyena": 0.0202,
     "autobound": 0.019,
     "seltz_news": 0.005,
     "tavily_ultrafast": 0.008,
