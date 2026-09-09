@@ -20,7 +20,7 @@ DEFAULT_ENDPOINTS = (
     "parallel_turbo", "parallel_fast", "parallel_basic", "exa_instant", "exa_fast",
     "brave", "brave_llm", "you", "you_highlights", "perplexity_low", "tinyfish",
     "firecrawl", "predictleads_category", "datahyena", "autobound", "seltz_news",
-    "tavily_ultrafast", "serp", "linkup_fast", "linkup_standard",
+    "tavily_basic", "tavily_advanced", "serp", "linkup_fast", "linkup_standard",
 )
 
 

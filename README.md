@@ -54,7 +54,10 @@ row, **Exa (type=fast)** at 99.3%, costs $7.05 per 1,000 correct.
 | 13 | You highlights | POST /v1/search extraction_mode=highlights | $5.51 | 90.7% | 72.0% | 89.7% | 628ms | 2,837 |
 | 14 | Exa fast | POST /search type=fast | $7.05 | 99.3% | 95.0% | 99.3% | 652ms | 1,987 |
 | 15 | Exa instant | POST /search type=instant | $7.17 | 97.7% | 80.0% | 97.3% | 398ms | 2,128 |
-| 16 | Tavily ultra-fast | POST /search search_depth=ultra-fast | $60.02 | 13.3% | 10.0% | 17.0% | 191ms | 2,827 |
+| — | Tavily basic | POST /search search_depth=basic | Pending | Pending | Pending | Pending | Pending | Pending |
+| — | Tavily advanced | POST /search search_depth=advanced | Pending | Pending | Pending | Pending | Pending | Pending |
+
+Tavily basic and advanced are in the current roster; benchmark results are pending.
 
 **News index and company-event APIs.** **Seltz (scope=news)** is the strongest
 dedicated index at $8.57 per 1,000 correct and 58.3% accuracy. The three
@@ -80,8 +83,8 @@ Full ranking, both bands: https://openbenchmarks.com/company-news
 Not on this run. On identical questions, query, result cap and judge, the best
 general web search endpoint is free (TinyFish) and the best paid one is $1.16
 per 1,000 correct (Parallel fast). The strongest dedicated news index, Seltz, is
-$8.57 per 1,000 correct at 58.3% accuracy. Thirteen of the sixteen web search
-rows score above 90%. No news index reaches 60%.
+$8.57 per 1,000 correct at 58.3% accuracy. Thirteen of the fifteen measured web search
+rows shown above score above 90%. No news index reaches 60%.
 
 The gap is mechanism, not freshness. Every question is a recent event pinned to
 an official wire or newsroom URL, which is the content a news index is built to
@@ -99,10 +102,9 @@ instant at 97.7%, Perplexity (low) at 97.3%, Linkup fast at 96.7% and the Google
 SERP API at 96.0%. Exa fast also leads answer recall, with the correct answer
 already in the first snippet 95.0% of the time.
 
-Accuracy is tightly bunched: thirteen of sixteen web search rows land between
+Accuracy is tightly bunched: thirteen of fifteen measured web search rows shown above land between
 90% and 99.3%. On a one-query lookup the interesting spread is cost and latency,
-not accuracy. The exception is Tavily ultra-fast at 13.3%, which trades
-essentially all of its accuracy for the fastest response on the board.
+not accuracy.
 
 **Model-only baseline: 0.** Every question is a company event dated after the
 extractor's training cutoff, so a correct answer has to be found in the returned
@@ -110,8 +112,7 @@ snippets rather than recalled.
 
 ## Which company news API is fastest?
 
-**Tavily ultra-fast** returns in 191ms mean, but at 13.3% accuracy. **Parallel
-turbo** returns in 348ms at 71.3%. The quickest endpoint that is also accurate is
+**Parallel turbo** returns in 348ms mean at 71.3% accuracy. The quickest endpoint that is also accurate is
 **Exa instant**: 398ms at 97.7%. Among the news indexes, Autobound answers in
 146ms and Seltz in 403ms.
 
@@ -167,11 +168,11 @@ submitted cases as its denominator.
 
 ## Published endpoint roster
 
-The default roster contains 20 endpoint configurations.
+The default roster contains 21 endpoint configurations.
 
 **Web search:** Parallel turbo, fast, and basic; Exa instant and fast; Brave Web
 Search and LLM Context; You Search and You highlights; Perplexity low context;
-TinyFish; Firecrawl; Tavily ultra-fast; Google Search through RapidAPI; and
+TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI; and
 Linkup fast and standard.
 
 **News indexes:** PredictLeads category-filtered news events, Datahyena company
@@ -182,7 +183,7 @@ Stable endpoint IDs, as accepted by `--endpoints`:
 ```text
 parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
 brave brave_llm you you_highlights perplexity_low tinyfish firecrawl
-tavily_ultrafast serp linkup_fast linkup_standard
+tavily_basic tavily_advanced serp linkup_fast linkup_standard
 predictleads_category datahyena autobound seltz_news
 ```
 
