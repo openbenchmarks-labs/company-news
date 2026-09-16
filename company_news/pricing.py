@@ -1,8 +1,11 @@
 """Public list-price assumptions. Update the effective date with every change."""
 
-PRICE_EFFECTIVE_DATE = "2026-09-09"
+PRICE_EFFECTIVE_DATE = "2026-09-15"
 
 USD_PER_REQUEST = {
+    "nimble_lite": 0.0011,
+    "nimble_lite_news": 0.0011,
+    "nimble_standard": 0.005,
     "parallel_turbo": 0.001,
     "parallel_fast": 0.001,
     "parallel_basic": 0.005,
@@ -10,7 +13,7 @@ USD_PER_REQUEST = {
     "exa_fast": 0.007,
     "brave": 0.005,
     "brave_llm": 0.005,
-    "you": 0.005,
+    "you_highlights_core": 0.005,
     "you_highlights": 0.005,
     "perplexity_low": 0.005,
     "tinyfish": 0.0,

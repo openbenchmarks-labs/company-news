@@ -22,13 +22,16 @@ def _parse(payload: Any) -> list[Hit]:
     return output
 
 
-def _adapter(highlights: bool) -> WebAdapter:
-    name = "you_highlights" if highlights else "you"
+def _adapter(core: bool) -> WebAdapter:
+    name = "you_highlights_core" if core else "you_highlights"
     def build(case: Case):
-        body: dict[str, Any] = {"query": case.question, "count": 10}
-        if highlights:
-            body["extraction"] = {"extraction_mode": "highlights"}
-        return "POST", "https://ydc-index.io/v1/search", {"X-API-Key": os.environ["YDC_API_KEY"], "Content-Type": "application/json"}, body, None, 45 if highlights else 30
+        body: dict[str, Any] = {
+            "query": case.question, "count": 10,
+            "extraction": {"extraction_mode": "highlights"},
+        }
+        if core:
+            body["knowledge"] = "core"
+        return "POST", "https://ydc-index.io/v1/search", {"X-API-Key": os.environ["YDC_API_KEY"], "Content-Type": "application/json"}, body, None, 45
     return WebAdapter(name, "https://documentation.you.com/api-reference/search", ("YDC_API_KEY",), build, _parse)
 
 

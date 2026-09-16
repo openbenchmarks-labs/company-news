@@ -4,7 +4,7 @@ Open, independent benchmark of company news APIs for AI agents. General web
 search APIs and dedicated news indexes answer the same 300 company-news
 questions, one query each, no query rewrite and no page fetch, scored on
 extracted-answer accuracy and ranked by cost per 1,000 correct answers. Web
-search: Exa, Parallel, Perplexity, Linkup, Firecrawl, Brave Search, You,
+search: Exa, Parallel, Perplexity, Linkup, Firecrawl, Brave Search, You, Nimble,
 TinyFish, Tavily, and a Google SERP API. News indexes: Seltz, PredictLeads,
 Autobound, and Datahyena. Open source code + open data.
 
@@ -17,9 +17,8 @@ sponsors or controls this benchmark.
 This repo is **runner and evaluation code only**. It does not bundle a dataset,
 run dumps, raw vendor HTTP, or leaderboard snapshots.
 
-Numbers below are from the run last measured **2026-09-01** on the private
-held-out set of 300 questions. The live board is the source of truth and moves
-with each run.
+Table updated **2026-09-15** on the private held-out set of 300 questions.
+The live board is the source of truth and moves with each run.
 
 ## Which API is best for company news?
 
@@ -40,20 +39,23 @@ row, **Exa (type=fast)** at 99.3%, costs $7.05 per 1,000 correct.
 | # | Vendor | Endpoint | $ / 1k correct | Accuracy | AR@1 | AR@5 | Latency | Snippet tokens |
 |---|---|---|---|---|---|---|---|---|
 | 1 | TinyFish | GET api.search.tinyfish.ai | Free (30 req/min) | 92.0% | 74.3% | 90.7% | 2.62s | 441 |
-| 2 | Parallel fast | POST /v1/search mode=fast | $1.16 | 86.0% | 44.3% | 79.0% | 942ms | 1,839 |
-| 3 | Parallel turbo | POST /v1/search mode=turbo | $1.40 | 71.3% | 45.3% | 66.0% | 348ms | 1,853 |
+| 1 | Parallel fast | POST /v1/search mode=fast | $1.16 | 86.0% | 44.3% | 79.0% | 942ms | 1,839 |
+| 2 | Parallel turbo | POST /v1/search mode=turbo | $1.40 | 71.3% | 45.3% | 66.0% | 348ms | 1,853 |
+| 3 | Nimble | POST /v2/search search_depth=lite · focus=general  | $1.46 | 75.3% | 64.0% | 75.3% | 3.15s | 413 |
 | 4 | SERP (RapidAPI) | GET google-search74 limit=10 | $3.13 | 96.0% | 78.0% | 95.0% | 751ms | 497 |
 | 5 | Perplexity (low) | POST /search context=low | $5.14 | 97.3% | 91.7% | 98.3% | 1.38s | 476 |
 | 6 | Linkup fast | POST /v1/search depth=fast | $5.17 | 96.7% | 79.0% | 94.7% | 1.57s | 3,022 |
 | 7 | Firecrawl | POST /v2/search | $5.24 | 95.3% | 77.7% | 96.7% | 510ms | 678 |
-| 8 | Brave LLM Context | POST /res/v1/llm/context | $5.32 | 94.0% | 81.0% | 94.7% | 601ms | 2,064 |
-| 9 | You | POST /v1/search count=10 | $5.36 | 93.3% | 84.7% | 94.7% | 532ms | 2,708 |
+| 8 | Nimble | POST /v2/search search_depth=lite · focus=news | $5.24 | 21.0% | 10.3% | 23.0% | 2.19s | 237 |
+| 9 | Brave LLM Context | POST /res/v1/llm/context | $5.32 | 94.0% | 81.0% | 94.7% | 601ms | 2,064 |
 | 10 | Parallel basic | POST /v1/search mode=basic | $5.36 | 93.3% | 55.0% | 92.0% | 1.68s | 2,330 |
 | 11 | Brave Search | GET /res/v1/web/search count=10 | $5.36 | 93.3% | 79.3% | 91.7% | 630ms | 817 |
-| 12 | Linkup standard | POST /v1/search depth=standard | $5.43 | 92.0% | 67.3% | 90.3% | 2.55s | 2,983 |
-| 13 | You highlights | POST /v1/search extraction_mode=highlights | $5.51 | 90.7% | 72.0% | 89.7% | 628ms | 2,837 |
-| 14 | Exa fast | POST /search type=fast | $7.05 | 99.3% | 95.0% | 99.3% | 652ms | 1,987 |
-| 15 | Exa instant | POST /search type=instant | $7.17 | 97.7% | 80.0% | 97.3% | 398ms | 2,128 |
+| 12 | Nimble | POST /v2/search search_depth=standard · focus=general | $5.38 | 93.0% | 86.3% | 94.3% | 861ms | 2,730 |
+| 13 | Linkup standard | POST /v1/search depth=standard | $5.43 | 92.0% | 67.3% | 90.3% | 2.55s | 2,983 |
+| 14 | You | POST /v1/search extraction_mode=highlights · knowledge=core | $5.43 | 92.0% | 67.3% | 89.7% | 889ms | 2,862 |
+| 15 | You | POST /v1/search extraction_mode=highlights | $5.51 | 90.7% | 72.0% | 89.7% | 628ms | 2,837 |
+| 16 | Exa fast | POST /search type=fast | $7.05 | 99.3% | 95.0% | 99.3% | 652ms | 1,987 |
+| 17 | Exa instant | POST /search type=instant | $7.17 | 97.7% | 80.0% | 97.3% | 398ms | 2,128 |
 | — | Tavily basic | POST /search search_depth=basic | Pending | Pending | Pending | Pending | Pending | Pending |
 | — | Tavily advanced | POST /search search_depth=advanced | Pending | Pending | Pending | Pending | Pending | Pending |
 
@@ -83,7 +85,7 @@ Full ranking, both bands: https://openbenchmarks.com/company-news
 Not on this run. On identical questions, query, result cap and judge, the best
 general web search endpoint is free (TinyFish) and the best paid one is $1.16
 per 1,000 correct (Parallel fast). The strongest dedicated news index, Seltz, is
-$8.57 per 1,000 correct at 58.3% accuracy. Thirteen of the fifteen measured web search
+$8.57 per 1,000 correct at 58.3% accuracy. Fourteen of the eighteen measured web search
 rows shown above score above 90%. No news index reaches 60%.
 
 The gap is mechanism, not freshness. Every question is a recent event pinned to
@@ -102,7 +104,7 @@ instant at 97.7%, Perplexity (low) at 97.3%, Linkup fast at 96.7% and the Google
 SERP API at 96.0%. Exa fast also leads answer recall, with the correct answer
 already in the first snippet 95.0% of the time.
 
-Accuracy is tightly bunched: thirteen of fifteen measured web search rows shown above land between
+Accuracy is tightly bunched: fourteen of eighteen measured web search rows shown above land between
 90% and 99.3%. On a one-query lookup the interesting spread is cost and latency,
 not accuracy.
 
@@ -168,10 +170,10 @@ submitted cases as its denominator.
 
 ## Published endpoint roster
 
-The default roster contains 21 endpoint configurations.
+The default roster contains 24 endpoint configurations.
 
 **Web search:** Parallel turbo, fast, and basic; Exa instant and fast; Brave Web
-Search and LLM Context; You Search and You highlights; Perplexity low context;
+Search and LLM Context; You highlights with and without `knowledge=core`; Perplexity low context;
 TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI; and
 Linkup fast and standard.
 
@@ -182,7 +184,8 @@ Stable endpoint IDs, as accepted by `--endpoints`:
 
 ```text
 parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
-brave brave_llm you you_highlights perplexity_low tinyfish firecrawl
+nimble_lite nimble_lite_news nimble_standard
+brave brave_llm you_highlights you_highlights_core perplexity_low tinyfish firecrawl
 tavily_basic tavily_advanced serp linkup_fast linkup_standard
 predictleads_category datahyena autobound seltz_news
 ```
@@ -303,6 +306,10 @@ same web search vendors are measured on two other jobs:
   [factual-lookup-company-news-search](https://github.com/openbenchmarks-labs/factual-lookup-company-news-search)
 - **Methodology and all three boards:** https://openbenchmarks.com/web-search
 - **Agent-readable index:** https://openbenchmarks.com/llms.txt
+
+## Changelog
+
+- **2026-09-15.** Added Nimble Search lite/general, lite/news, and standard/general to the existing table and runner roster. All use `full_content=false`, 10 results, and descriptions only; no Extract call. Added You highlights + `knowledge=core` on the 300-question Company News benchmark; published accuracy is 92.0%, versus 90.7% with highlights alone. Updated the You roster and request contracts.
 
 ## License
 
