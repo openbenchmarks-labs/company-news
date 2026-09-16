@@ -5,8 +5,8 @@ search APIs and dedicated news indexes answer the same 300 company-news
 questions, one query each, no query rewrite and no page fetch, scored on
 extracted-answer accuracy and ranked by cost per 1,000 correct answers. Web
 search: Exa, Parallel, Perplexity, Linkup, Firecrawl, Brave Search, You,
-TinyFish, Tavily, and a Google SERP API. News indexes: Seltz, PredictLeads,
-Autobound, and Datahyena. Open source code + open data.
+TinyFish, Tavily, String, and a Google SERP API. News indexes: Seltz,
+PredictLeads, Autobound, and Datahyena. Open source code + open data.
 
 **Live leaderboard:** https://openbenchmarks.com/company-news
 **Public dataset:** [`openbenchmarks/OB-News-Websearch`](https://huggingface.co/datasets/openbenchmarks/OB-News-Websearch)
@@ -56,8 +56,10 @@ row, **Exa (type=fast)** at 99.3%, costs $7.05 per 1,000 correct.
 | 15 | Exa instant | POST /search type=instant | $7.17 | 97.7% | 80.0% | 97.3% | 398ms | 2,128 |
 | — | Tavily basic | POST /search search_depth=basic | Pending | Pending | Pending | Pending | Pending | Pending |
 | — | Tavily advanced | POST /search search_depth=advanced | Pending | Pending | Pending | Pending | Pending | Pending |
+| — | String | POST /v1/search engine=google | Pending | Pending | Pending | Pending | Pending | Pending |
 
-Tavily basic and advanced are in the current roster; benchmark results are pending.
+Tavily basic, Tavily advanced, and String are in the current roster; benchmark
+results are pending.
 
 **News index and company-event APIs.** **Seltz (scope=news)** is the strongest
 dedicated index at $8.57 per 1,000 correct and 58.3% accuracy. The three
@@ -168,12 +170,12 @@ submitted cases as its denominator.
 
 ## Published endpoint roster
 
-The default roster contains 21 endpoint configurations.
+The default roster contains 22 endpoint configurations.
 
 **Web search:** Parallel turbo, fast, and basic; Exa instant and fast; Brave Web
 Search and LLM Context; You Search and You highlights; Perplexity low context;
-TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI; and
-Linkup fast and standard.
+TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI;
+Linkup fast and standard; and String Web Access.
 
 **News indexes:** PredictLeads category-filtered news events, Datahyena company
 events, Autobound news events, and Seltz News Search.
@@ -183,7 +185,7 @@ Stable endpoint IDs, as accepted by `--endpoints`:
 ```text
 parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
 brave brave_llm you you_highlights perplexity_low tinyfish firecrawl
-tavily_basic tavily_advanced serp linkup_fast linkup_standard
+tavily_basic tavily_advanced serp linkup_fast linkup_standard string
 predictleads_category datahyena autobound seltz_news
 ```
 
