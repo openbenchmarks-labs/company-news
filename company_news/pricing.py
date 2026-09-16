@@ -1,6 +1,6 @@
 """Public list-price assumptions. Update the effective date with every change."""
 
-PRICE_EFFECTIVE_DATE = "2026-09-09"
+PRICE_EFFECTIVE_DATE = "2026-09-15"
 
 USD_PER_REQUEST = {
     "parallel_turbo": 0.001,
@@ -25,5 +25,8 @@ USD_PER_REQUEST = {
     "serp": 0.003,
     "linkup_fast": 0.005,
     "linkup_standard": 0.005,
+    # https://portal.usestring.ai/docs/get-started/pricing (search, Starter $1.50 / 1,000;
+    # the $20/mo plan fee is not in the per-query rate).
+    "string": 0.0015,
 }
 

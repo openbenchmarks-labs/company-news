@@ -12,6 +12,7 @@ from .web_search.linkup import ADAPTERS as LINKUP
 from .web_search.parallel import ADAPTERS as PARALLEL
 from .web_search.perplexity import ADAPTERS as PERPLEXITY
 from .web_search.serp import ADAPTERS as SERP
+from .web_search.string import ADAPTERS as STRING
 from .web_search.tavily import ADAPTERS as TAVILY
 from .web_search.tinyfish import ADAPTERS as TINYFISH
 from .web_search.you import ADAPTERS as YOU
@@ -21,12 +22,13 @@ DEFAULT_ENDPOINTS = (
     "brave", "brave_llm", "you", "you_highlights", "perplexity_low", "tinyfish",
     "firecrawl", "predictleads_category", "datahyena", "autobound", "seltz_news",
     "tavily_basic", "tavily_advanced", "serp", "linkup_fast", "linkup_standard",
+    "string",
 )
 
 
 def all_adapters() -> dict[str, ProviderAdapter]:
     adapters = [*PARALLEL, *EXA, *BRAVE, *YOU, *PERPLEXITY, *TINYFISH, *FIRECRAWL,
-                *PREDICTLEADS, *DATAHYENA, *AUTOBOUND, *SELTZ, *TAVILY, *SERP, *LINKUP]
+                *PREDICTLEADS, *DATAHYENA, *AUTOBOUND, *SELTZ, *TAVILY, *SERP, *LINKUP, *STRING]
     result = {adapter.name: adapter for adapter in adapters}
     if len(result) != len(adapters):
         raise RuntimeError("duplicate provider endpoint name")
