@@ -3,6 +3,7 @@ from __future__ import annotations
 from .base import ProviderAdapter
 from .news_indexes.autobound import ADAPTERS as AUTOBOUND
 from .news_indexes.datahyena import ADAPTERS as DATAHYENA
+from .news_indexes.extruct_tables import ADAPTERS as EXTRUCT_TABLES
 from .news_indexes.predictleads import ADAPTERS as PREDICTLEADS
 from .news_indexes.seltz import ADAPTERS as SELTZ
 from .web_search.brave import ADAPTERS as BRAVE
@@ -28,7 +29,7 @@ DEFAULT_ENDPOINTS = (
 
 def all_adapters() -> dict[str, ProviderAdapter]:
     adapters = [*NIMBLE, *PARALLEL, *EXA, *BRAVE, *YOU, *PERPLEXITY, *TINYFISH, *FIRECRAWL,
-                *PREDICTLEADS, *DATAHYENA, *AUTOBOUND, *SELTZ, *TAVILY, *SERP, *LINKUP]
+                *PREDICTLEADS, *DATAHYENA, *AUTOBOUND, *SELTZ, *EXTRUCT_TABLES, *TAVILY, *SERP, *LINKUP]
     result = {adapter.name: adapter for adapter in adapters}
     if len(result) != len(adapters):
         raise RuntimeError("duplicate provider endpoint name")
