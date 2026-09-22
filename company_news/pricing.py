@@ -22,6 +22,9 @@ USD_PER_REQUEST = {
     "datahyena": 0.050,
     "autobound": 0.019,
     "seltz_news": 0.005,
+    # Extruct research_reasoning list-price placeholder; replace with the
+    # billed credits-to-USD from the smoke before publishing a leaderboard row.
+    "extruct_tables": 0.05,
     # https://docs.tavily.com/documentation/api-credits (1 / 2 PAYG credits).
     "tavily_basic": 0.008,
     "tavily_advanced": 0.016,
