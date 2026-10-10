@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from .base import ProviderAdapter
 from .news_indexes.autobound import ADAPTERS as AUTOBOUND
-from .news_indexes.datahyena import ADAPTERS as DATAHYENA
 from .news_indexes.predictleads import ADAPTERS as PREDICTLEADS
 from .news_indexes.seltz import ADAPTERS as SELTZ
 from .web_search.brave import ADAPTERS as BRAVE
@@ -21,14 +20,14 @@ DEFAULT_ENDPOINTS = (
     "nimble_lite", "nimble_lite_news", "nimble_standard",
     "parallel_turbo", "parallel_fast", "parallel_basic", "exa_instant", "exa_fast",
     "brave", "brave_llm", "you_highlights", "you_highlights_core", "perplexity_low", "tinyfish",
-    "firecrawl", "predictleads_category", "datahyena", "autobound", "seltz_news",
+    "firecrawl", "predictleads_category", "autobound", "seltz_news",
     "tavily_basic", "tavily_advanced", "serp", "linkup_fast", "linkup_standard",
 )
 
 
 def all_adapters() -> dict[str, ProviderAdapter]:
     adapters = [*NIMBLE, *PARALLEL, *EXA, *BRAVE, *YOU, *PERPLEXITY, *TINYFISH, *FIRECRAWL,
-                *PREDICTLEADS, *DATAHYENA, *AUTOBOUND, *SELTZ, *TAVILY, *SERP, *LINKUP]
+                *PREDICTLEADS, *AUTOBOUND, *SELTZ, *TAVILY, *SERP, *LINKUP]
     result = {adapter.name: adapter for adapter in adapters}
     if len(result) != len(adapters):
         raise RuntimeError("duplicate provider endpoint name")

@@ -6,7 +6,7 @@ questions, one query each, no query rewrite and no page fetch, scored on
 extracted-answer accuracy and ranked by cost per 1,000 correct answers. Web
 search: Exa, Parallel, Perplexity, Linkup, Firecrawl, Brave Search, You, Nimble,
 TinyFish, Tavily, and a Google SERP API. News indexes: Seltz, PredictLeads,
-Autobound, and Datahyena. Open source code + open data.
+and Autobound. Open source code + open data.
 
 **Live leaderboard:** https://openbenchmarks.com/company-news
 **Public dataset:** [`openbenchmarks/OB-News-Websearch`](https://huggingface.co/datasets/openbenchmarks/OB-News-Websearch)
@@ -64,18 +64,17 @@ Tavily basic and advanced are in the current roster; benchmark results are pendi
 **News index and company-event APIs.** **Seltz (scope=news)** is the strongest
 dedicated index at $8.57 per 1,000 correct and 58.3% accuracy. The three
 domain-keyed event APIs are priced per credit and answer a minority of the
-questions, so their cost per correct answer runs from $121 to $716.
+questions, so their cost per correct answer runs from $121 to $194.
 
 | # | Vendor | Endpoint | $ / 1k correct | Accuracy | AR@1 | AR@5 | Latency | Snippet tokens |
 |---|---|---|---|---|---|---|---|---|
 | 1 | Seltz news | POST /v1/search scope=news | $8.57 | 58.3% | 44.3% | 60.0% | 403ms | 2,919 |
 | 2 | Autobound news events | POST /v1/companies/enrich signal_types=news | $120.76 | 30.0% | 21.0% | 25.0% | 146ms | 879 |
 | 3 | PredictLeads news events | GET /api/v3/companies/{domain}/news_events categories[] | $193.52 | 20.7% | 14.0% | 20.0% | 398ms | 484 |
-| 4 | Datahyena company events | GET /v1/companies/timeline include=funding,acquisitions,exec_moves | $716.07 | 5.3% | 5.3% | 6.7% | 187ms | 22 |
 
 Cost per 1,000 queries is the published pay-as-you-go list price, not promotional
-packs or volume discounts. Autobound and Datahyena are converted from credits
-(Starter $19 / 2,000 credits and PAYG $25 / 500 credits). Pricing assumptions
+packs or volume discounts. Autobound is converted from credits
+(Starter $19 / 2,000 credits). Pricing assumptions
 and their effective date are versioned in `company_news/pricing.py`.
 
 Full ranking, both bands: https://openbenchmarks.com/company-news
@@ -90,7 +89,7 @@ rows shown above score above 90%. No news index reaches 60%.
 
 The gap is mechanism, not freshness. Every question is a recent event pinned to
 an official wire or newsroom URL, which is the content a news index is built to
-carry. The domain-keyed event APIs (PredictLeads, Autobound, Datahyena) lose most
+carry. The domain-keyed event APIs (PredictLeads, Autobound) lose most
 questions at the lookup stage: the event is not in the index under that domain
 and category, so nothing comes back to extract from.
 
@@ -177,8 +176,8 @@ Search and LLM Context; You highlights with and without `knowledge=core`; Perple
 TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI; and
 Linkup fast and standard.
 
-**News indexes:** PredictLeads category-filtered news events, Datahyena company
-events, Autobound news events, and Seltz News Search.
+**News indexes:** PredictLeads category-filtered news events, Autobound news
+events, and Seltz News Search.
 
 Stable endpoint IDs, as accepted by `--endpoints`:
 
@@ -187,7 +186,7 @@ parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
 nimble_lite nimble_lite_news nimble_standard
 brave brave_llm you_highlights you_highlights_core perplexity_low tinyfish firecrawl
 tavily_basic tavily_advanced serp linkup_fast linkup_standard
-predictleads_category datahyena autobound seltz_news
+predictleads_category autobound seltz_news
 ```
 
 Run `company-news list-providers` to see surface assignments and official

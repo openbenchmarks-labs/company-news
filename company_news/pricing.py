@@ -19,7 +19,6 @@ USD_PER_REQUEST = {
     "tinyfish": 0.0,
     "firecrawl": 0.005,
     "predictleads_category": 0.040,
-    "datahyena": 0.050,
     "autobound": 0.019,
     "seltz_news": 0.005,
     # https://docs.tavily.com/documentation/api-credits (1 / 2 PAYG credits).
