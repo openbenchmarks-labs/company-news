@@ -170,7 +170,7 @@ submitted cases as its denominator.
 
 ## Published endpoint roster
 
-The default roster contains 25 endpoint configurations.
+The default roster contains 26 endpoint configurations.
 
 Context.dev (`context`) uses the unchanged question and up to 10 search results,
 with `highlightsOptions={"enabled":true,"maxCharacters":8000}`. Snippets use
@@ -178,6 +178,12 @@ successful Highlights, falling back to descriptions when Highlights are unavaila
 Set `CONTEXT_API_KEY` and select `--endpoints context`. Results are pending.
 Pricing uses the Developer top-up rate of $2.20 per 1,000 credits and two credits
 per 10 results with Highlights ($0.0044/query), verified 2026-10-20; the subscription is excluded.
+
+String Web Access (`string`) sends the unchanged question to `POST /v1/search`
+with `engine=google` and uses the first results page, about eight to ten organic
+results with their snippets. Set `STRING_API_KEY` and select `--endpoints string`.
+Results are pending. Pricing uses the Starter rate of $1.50 per 1,000 searches
+($0.0015/query), verified 2026-10-26.
 
 **Web search:** Parallel turbo, fast, and basic; Exa instant and fast; Brave Web
 Search and LLM Context; You highlights with and without `knowledge=core`; Perplexity low context;
@@ -194,7 +200,7 @@ parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
 context
 nimble_lite nimble_lite_news nimble_standard
 brave brave_llm you_highlights you_highlights_core perplexity_low tinyfish firecrawl
-tavily_basic tavily_advanced serp linkup_fast linkup_standard
+tavily_basic tavily_advanced serp linkup_fast linkup_standard string
 predictleads_category datahyena autobound seltz_news
 ```
 

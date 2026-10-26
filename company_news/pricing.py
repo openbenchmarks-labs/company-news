@@ -1,6 +1,6 @@
 """Public list-price assumptions. Update the effective date with every change."""
 
-PRICE_EFFECTIVE_DATE = "2026-10-20"
+PRICE_EFFECTIVE_DATE = "2026-10-26"
 
 USD_PER_REQUEST = {
     # Context Developer top-up: $2.20 / 1,000 credits; 2 credits / 10 results with Highlights.
@@ -31,5 +31,8 @@ USD_PER_REQUEST = {
     "serp": 0.003,
     "linkup_fast": 0.005,
     "linkup_standard": 0.005,
+    # String Starter: $1.50 / 1,000 searches.
+    # https://usestring.ai/pricing (2026-10-26)
+    "string": 0.0015,
 }
 
