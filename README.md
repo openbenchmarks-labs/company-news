@@ -5,7 +5,7 @@ search APIs and dedicated news indexes answer the same 300 company-news
 questions, one query each, no query rewrite and no page fetch, scored on
 extracted-answer accuracy and ranked by cost per 1,000 correct answers. Web
 search: Exa, Parallel, Perplexity, Linkup, Firecrawl, Brave Search, You, Nimble,
-TinyFish, Tavily, and a Google SERP API. News indexes: Seltz, PredictLeads,
+Keenable, TinyFish, Tavily, and a Google SERP API. News indexes: Seltz, PredictLeads,
 Autobound, and Datahyena. Open source code + open data.
 
 **Live leaderboard:** https://openbenchmarks.com/company-news
