@@ -20,16 +20,15 @@ def _parse(payload: Any) -> list[Hit]:
     return output
 
 
-def _adapter(mode: str) -> WebAdapter:
-    def build(case: Case):
-        return (
-            "POST", "https://api.keenable.ai/v1/search",
-            {"X-API-Key": os.environ["KEENABLE_API_KEY"], "Content-Type": "application/json"},
-            {"query": case.question, "mode": mode, "max_results": 10},
-            None, 45,
-        )
-    return WebAdapter(f"keenable_{mode}", "https://docs.keenable.ai/api-reference/search",
-                      ("KEENABLE_API_KEY",), build, _parse)
+def _build(case: Case):
+    # mode="pro" is Keenable's standard index-based search; sent explicitly.
+    return (
+        "POST", "https://api.keenable.ai/v1/search",
+        {"X-API-Key": os.environ["KEENABLE_API_KEY"], "Content-Type": "application/json"},
+        {"query": case.question, "mode": "pro", "max_results": 10},
+        None, 45,
+    )
 
 
-ADAPTERS = [_adapter("pro"), _adapter("realtime")]
+ADAPTERS = [WebAdapter("keenable", "https://docs.keenable.ai/api-reference/search",
+                       ("KEENABLE_API_KEY",), _build, _parse)]

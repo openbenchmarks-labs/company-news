@@ -9,20 +9,19 @@ from company_news.pricing import USD_PER_REQUEST
 from company_news.providers import DEFAULT_ENDPOINTS, all_adapters
 
 
-@pytest.mark.parametrize("name,mode", [("keenable_pro", "pro"), ("keenable_realtime", "realtime")])
-def test_keenable_request_contract(name, mode):
-    adapter = all_adapters()[name]
+def test_keenable_request_contract():
+    adapter = all_adapters()["keenable"]
     with patch.dict("os.environ", {"KEENABLE_API_KEY": "test-key"}):
         method, url, headers, body, params, timeout = adapter.build(Case(id="q", question="Unchanged question?"))
     assert (method, url, params, timeout) == ("POST", "https://api.keenable.ai/v1/search", None, 45)
-    assert body == {"query": "Unchanged question?", "mode": mode, "max_results": 10}
+    assert body == {"query": "Unchanged question?", "mode": "pro", "max_results": 10}
     assert headers["X-API-Key"] == "test-key"
     assert adapter.required_env == ("KEENABLE_API_KEY",)
     assert adapter.surface == "web-search"
 
 
 def test_keenable_parser_prefers_snippet_and_skips_bad_rows():
-    adapter = all_adapters()["keenable_pro"]
+    adapter = all_adapters()["keenable"]
     rows = [
         None, {}, {"url": "", "snippet": "no url"}, {"title": "missing url", "snippet": "x"},
         {"url": "https://example.com/a", "title": "A", "description": "", "snippet": "Long snippet",
@@ -40,7 +39,7 @@ def test_keenable_parser_prefers_snippet_and_skips_bad_rows():
 
 
 def test_keenable_search_dedupes_and_redacts_key():
-    adapter = all_adapters()["keenable_realtime"]
+    adapter = all_adapters()["keenable"]
     response = MagicMock(status_code=200, ok=True)
     response.json.return_value = {"results": [
         {"url": "https://example.com/a", "title": "A", "snippet": "one"},
@@ -51,7 +50,7 @@ def test_keenable_search_dedupes_and_redacts_key():
             patch("company_news.http.requests.request", return_value=response) as request:
         result = adapter.search(Case(id="q", question="Q?"))
     assert request.call_args.args == ("POST", "https://api.keenable.ai/v1/search")
-    assert request.call_args.kwargs["json"]["mode"] == "realtime"
+    assert request.call_args.kwargs["json"]["mode"] == "pro"
     assert len(result.hits) == 10
     assert [h.url for h in result.hits].count("https://www.example.com/a/") == 0
     assert result.audit.request["headers"]["X-API-Key"] == "***REDACTED***"
@@ -59,7 +58,7 @@ def test_keenable_search_dedupes_and_redacts_key():
 
 
 def test_keenable_failed_search_returns_no_hits():
-    adapter = all_adapters()["keenable_pro"]
+    adapter = all_adapters()["keenable"]
     response = MagicMock(status_code=401, ok=False)
     response.json.return_value = {"detail": "unauthorized"}
     with patch.dict("os.environ", {"KEENABLE_API_KEY": "k"}), \
@@ -74,8 +73,8 @@ def test_x_api_key_header_redacted_case_insensitive():
     assert set(headers.values()) == {"***REDACTED***"}
 
 
-@pytest.mark.parametrize("name", ["keenable_pro", "keenable_realtime"])
-def test_keenable_roster_and_list_price(name):
+def test_keenable_roster_and_list_price():
+    name = "keenable"
     # The repo prices per endpoint at list price (metrics.aggregate); usage.credits is not per-cell.
     assert name in DEFAULT_ENDPOINTS
     assert USD_PER_REQUEST[name] == 0.004
@@ -83,3 +82,9 @@ def test_keenable_roster_and_list_price(name):
                       "evaluation": {"accuracy": {"correct": True}}}])[0]
     assert row["list_price_per_query_usd"] == 0.004
     assert row["cost_per_1000_correct_usd"] == 4.0
+
+
+def test_keenable_is_a_single_pro_arm():
+    names = [name for name in all_adapters() if name.startswith("keenable")]
+    assert names == ["keenable"]
+    assert [name for name in DEFAULT_ENDPOINTS if name.startswith("keenable")] == ["keenable"]

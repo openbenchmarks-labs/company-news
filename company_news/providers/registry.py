@@ -21,7 +21,7 @@ from .web_search.you import ADAPTERS as YOU
 
 DEFAULT_ENDPOINTS = (
     "context",
-    "keenable_pro", "keenable_realtime",
+    "keenable",
     "nimble_lite", "nimble_lite_news", "nimble_standard",
     "parallel_turbo", "parallel_fast", "parallel_basic", "exa_instant", "exa_fast",
     "brave", "brave_llm", "you_highlights", "you_highlights_core", "perplexity_low", "tinyfish",
