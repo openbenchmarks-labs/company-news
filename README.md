@@ -5,7 +5,7 @@ search APIs and dedicated news indexes answer the same 300 company-news
 questions, one query each, no query rewrite and no page fetch, scored on
 extracted-answer accuracy and ranked by cost per 1,000 correct answers. Web
 search: Exa, Parallel, Perplexity, Linkup, Firecrawl, Brave Search, You, Nimble,
-TinyFish, Tavily, and a Google SERP API. News indexes: Seltz, PredictLeads,
+Keenable, TinyFish, Tavily, and a Google SERP API. News indexes: Seltz, PredictLeads,
 Autobound, and Datahyena. Open source code + open data.
 
 **Live leaderboard:** https://openbenchmarks.com/company-news
@@ -170,7 +170,7 @@ submitted cases as its denominator.
 
 ## Published endpoint roster
 
-The default roster contains 25 endpoint configurations.
+The default roster contains 26 endpoint configurations.
 
 Context.dev (`context`) uses the unchanged question and up to 10 search results,
 with `highlightsOptions={"enabled":true,"maxCharacters":8000}`. Snippets use
@@ -179,9 +179,16 @@ Set `CONTEXT_API_KEY` and select `--endpoints context`. Results are pending.
 Pricing uses the Developer top-up rate of $2.20 per 1,000 credits and two credits
 per 10 results with Highlights ($0.0044/query), verified 2026-10-20; the subscription is excluded.
 
+Keenable (`keenable`) uses the unchanged question with `mode=pro` (sent
+explicitly) and up to 10 search results (`max_results=10`); snippets are
+Keenable's default returned `snippet`, falling back to `description`. Set
+`KEENABLE_API_KEY` and select `--endpoints keenable`. Results are pending (no
+scored run yet). Pricing is the $4 per 1,000 requests list price ($0.004/query)
+from keenable.ai/pricing, checked 2026-11-02.
+
 **Web search:** Parallel turbo, fast, and basic; Exa instant and fast; Brave Web
 Search and LLM Context; You highlights with and without `knowledge=core`; Perplexity low context;
-TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI; and
+TinyFish; Firecrawl; Keenable; Tavily basic and advanced; Google Search through RapidAPI; and
 Linkup fast and standard.
 
 **News indexes:** PredictLeads category-filtered news events, Datahyena company
@@ -192,6 +199,7 @@ Stable endpoint IDs, as accepted by `--endpoints`:
 ```text
 parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
 context
+keenable
 nimble_lite nimble_lite_news nimble_standard
 brave brave_llm you_highlights you_highlights_core perplexity_low tinyfish firecrawl
 tavily_basic tavily_advanced serp linkup_fast linkup_standard
