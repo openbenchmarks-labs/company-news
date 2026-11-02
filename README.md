@@ -170,7 +170,7 @@ submitted cases as its denominator.
 
 ## Published endpoint roster
 
-The default roster contains 25 endpoint configurations.
+The default roster contains 27 endpoint configurations.
 
 Context.dev (`context`) uses the unchanged question and up to 10 search results,
 with `highlightsOptions={"enabled":true,"maxCharacters":8000}`. Snippets use
@@ -179,9 +179,16 @@ Set `CONTEXT_API_KEY` and select `--endpoints context`. Results are pending.
 Pricing uses the Developer top-up rate of $2.20 per 1,000 credits and two credits
 per 10 results with Highlights ($0.0044/query), verified 2026-10-20; the subscription is excluded.
 
+Keenable (`keenable_pro`, `keenable_realtime`) uses the unchanged question with
+`mode=pro` or `mode=realtime` and `max_results=10`; snippets use the returned
+`snippet`, falling back to `description`. Both arms share `KEENABLE_API_KEY`;
+select them with `--endpoints keenable_pro,keenable_realtime`. Results are pending
+(no scored run yet). Pricing is the $4 per 1,000 requests list price
+($0.004/query) from keenable.ai/pricing, checked 2026-11-02.
+
 **Web search:** Parallel turbo, fast, and basic; Exa instant and fast; Brave Web
 Search and LLM Context; You highlights with and without `knowledge=core`; Perplexity low context;
-TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI; and
+TinyFish; Firecrawl; Keenable pro and realtime; Tavily basic and advanced; Google Search through RapidAPI; and
 Linkup fast and standard.
 
 **News indexes:** PredictLeads category-filtered news events, Datahyena company
@@ -192,6 +199,7 @@ Stable endpoint IDs, as accepted by `--endpoints`:
 ```text
 parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
 context
+keenable_pro keenable_realtime
 nimble_lite nimble_lite_news nimble_standard
 brave brave_llm you_highlights you_highlights_core perplexity_low tinyfish firecrawl
 tavily_basic tavily_advanced serp linkup_fast linkup_standard
