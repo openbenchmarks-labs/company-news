@@ -170,7 +170,7 @@ submitted cases as its denominator.
 
 ## Published endpoint roster
 
-The default roster contains 25 endpoint configurations.
+The default roster contains 26 endpoint configurations.
 
 Context.dev (`context`) uses the unchanged question and up to 10 search results,
 with `highlightsOptions={"enabled":true,"maxCharacters":8000}`. Snippets use
@@ -179,9 +179,15 @@ Set `CONTEXT_API_KEY` and select `--endpoints context`. Results are pending.
 Pricing uses the Developer top-up rate of $2.20 per 1,000 credits and two credits
 per 10 results with Highlights ($0.0044/query), verified 2026-10-20; the subscription is excluded.
 
+Hydrafetch (`hydrafetch`) uses the unchanged question and up to 10 search results,
+with `scrapeResults=false`, so snippets are the result snippets the search returns
+and no page is fetched. Set `HYDRAFETCH_API_KEY` and select `--endpoints hydrafetch`.
+Results are pending. Pricing uses the Build plan rate of $19 for 15,000 credits and
+one credit per search ($0.00127/query), verified 2026-11-02.
+
 **Web search:** Parallel turbo, fast, and basic; Exa instant and fast; Brave Web
 Search and LLM Context; You highlights with and without `knowledge=core`; Perplexity low context;
-TinyFish; Firecrawl; Tavily basic and advanced; Google Search through RapidAPI; and
+TinyFish; Firecrawl; Hydrafetch; Tavily basic and advanced; Google Search through RapidAPI; and
 Linkup fast and standard.
 
 **News indexes:** PredictLeads category-filtered news events, Datahyena company
@@ -191,7 +197,7 @@ Stable endpoint IDs, as accepted by `--endpoints`:
 
 ```text
 parallel_turbo parallel_fast parallel_basic exa_instant exa_fast
-context
+context hydrafetch
 nimble_lite nimble_lite_news nimble_standard
 brave brave_llm you_highlights you_highlights_core perplexity_low tinyfish firecrawl
 tavily_basic tavily_advanced serp linkup_fast linkup_standard
