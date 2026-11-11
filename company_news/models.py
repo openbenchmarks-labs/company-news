@@ -63,7 +63,7 @@ class HttpAudit(BaseModel):
     status_code: int | None = None
     error: str = ""
     attempts: list[Attempt] = Field(default_factory=list)
-    latency_ms: int
+    latency_ms: int | None  # None when no request was made (a skipped news-index call)
     started_at: str
     ended_at: str
 

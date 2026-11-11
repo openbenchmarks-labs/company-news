@@ -30,7 +30,7 @@ def judge_recall(case: Case, hits: list[Hit]) -> tuple[RecallVerdict, dict[str, 
     if not hits:
         return RecallVerdict(bearing_ranks=[], note="no snippets"), {"input_tokens": 0, "output_tokens": 0}
     snippets = [
-        {"rank": index, "title": row.title[:300], "url": row.url, "snippet": row.snippet[:1200]}
+        {"rank": index, "title": row.title[:300], "url": row.url, "snippet": row.snippet}
         for index, row in enumerate(hits[:10], 1)
     ]
     parsed, tokens = call_json(

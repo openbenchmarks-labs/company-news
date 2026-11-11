@@ -12,6 +12,7 @@ USD_PER_REQUEST = {
     "parallel_turbo": 0.001,
     "parallel_fast": 0.001,
     "parallel_basic": 0.005,
+    "parallel_advanced": 0.005,
     "exa_instant": 0.007,
     "exa_fast": 0.007,
     "brave": 0.005,

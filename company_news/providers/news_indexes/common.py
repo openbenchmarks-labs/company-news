@@ -12,6 +12,6 @@ def skipped(endpoint: str, case: Case, reason: str) -> SearchResult:
         hits=[],
         audit=HttpAudit(
             method="SKIP", url="", request={"case_id": case.id}, response={"skip_reason": reason},
-            ok=True, error="", attempts=[], latency_ms=0, started_at=stamp, ended_at=stamp,
+            ok=True, error="", attempts=[], latency_ms=None, started_at=stamp, ended_at=stamp,
         ),
     )

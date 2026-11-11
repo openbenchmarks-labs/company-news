@@ -28,8 +28,9 @@ def aggregate(cells: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for endpoint, items in grouped.items():
         correct = sum(bool((item.get("evaluation") or {}).get("accuracy", {}).get("correct")) for item in items)
-        succeeded = [item for item in items if item.get("ok")]
-        latencies = [float(item.get("latency_ms") or 0) for item in succeeded]
+        # A skipped news-index call made no request: it is not a successful request and has no latency.
+        succeeded = [item for item in items if item.get("ok") and item.get("latency_ms") is not None]
+        latencies = [float(item["latency_ms"]) for item in succeeded]
         ar = lambda k: sum(bool((item.get("evaluation") or {}).get("answer_recall", {}).get(f"ar{k}")) for item in items)
         source5 = 0
         snippet_tokens: list[int] = []

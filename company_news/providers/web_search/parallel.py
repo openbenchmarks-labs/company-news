@@ -24,10 +24,10 @@ def _adapter(mode: str) -> WebAdapter:
             {"x-api-key": os.environ["PARALLEL_API_KEY"], "Content-Type": "application/json"},
             {"objective": case.question, "search_queries": [case.question], "mode": mode,
              "advanced_settings": {"max_results": 10}},
-            None, 90 if mode == "basic" else 60,
+            None, 90 if mode in {"basic", "advanced"} else 60,
         )
     return WebAdapter(f"parallel_{mode}", "https://docs.parallel.ai/api-reference/search", ("PARALLEL_API_KEY",), build, _parse)
 
 
-ADAPTERS = [_adapter(mode) for mode in ("turbo", "fast", "basic")]
+ADAPTERS = [_adapter(mode) for mode in ("turbo", "fast", "basic", "advanced")]
 

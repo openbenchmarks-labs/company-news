@@ -22,7 +22,7 @@ def hit(url: Any, title: Any = "", snippet: Any = "", **metadata: Any) -> Hit | 
     return Hit(
         url=clean_url,
         title=str(title or "").strip(),
-        snippet=str(snippet or "").strip()[:8000],
+        snippet=str(snippet or "").strip(),
         metadata=metadata,
     )
 
