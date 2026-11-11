@@ -15,7 +15,7 @@ def _parse(payload: Any) -> list[Hit]:
         highlights = row.get("highlights") or {}
         parts = highlights.get("highlights") or []
         snippet = "\n".join(part for part in parts if isinstance(part, str)) if highlights.get("code") == "SUCCESS" else ""
-        item = hit(row.get("url"), row.get("title"), (snippet.strip() or row.get("description") or "")[:8000])
+        item = hit(row.get("url"), row.get("title"), snippet.strip() or row.get("description") or "")
         if item:
             output.append(item)
     return output
@@ -25,7 +25,7 @@ def _build(case: Case):
     return (
         "POST", "https://api.context.dev/v1/web/search",
         {"Authorization": f"Bearer {os.environ['CONTEXT_API_KEY']}", "Content-Type": "application/json"},
-        {"query": case.question, "numResults": 10, "highlightsOptions": {"enabled": True, "maxCharacters": 8000}},
+        {"query": case.question, "numResults": 10, "highlightsOptions": {"enabled": True}},
         None, 90,
     )
 

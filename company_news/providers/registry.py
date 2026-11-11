@@ -21,7 +21,7 @@ from .web_search.you import ADAPTERS as YOU
 DEFAULT_ENDPOINTS = (
     "context",
     "nimble_lite", "nimble_lite_news", "nimble_standard",
-    "parallel_turbo", "parallel_fast", "parallel_basic", "exa_instant", "exa_fast",
+    "parallel_turbo", "parallel_fast", "parallel_basic", "parallel_advanced", "exa_instant", "exa_fast",
     "brave", "brave_llm", "you_highlights", "you_highlights_core", "perplexity_low", "tinyfish",
     "firecrawl", "predictleads_category", "datahyena", "autobound", "seltz_news",
     "tavily_basic", "tavily_advanced", "serp", "linkup_fast", "linkup_standard",

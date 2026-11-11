@@ -14,3 +14,16 @@ def test_accuracy_keeps_failures_in_denominator_and_latency_drops_them():
     assert row["mean_latency_ms"] == 100.0
     assert row["successful_requests"] == 1
 
+
+
+def test_skipped_news_index_calls_have_no_latency():
+    cells = [
+        {"endpoint": "datahyena", "surface": "news-index", "ok": True, "latency_ms": 400,
+         "ground_truth_url": "", "hits": [], "evaluation": {"accuracy": {"correct": True}, "answer_recall": {}}},
+        {"endpoint": "datahyena", "surface": "news-index", "ok": True, "latency_ms": None,
+         "ground_truth_url": "", "hits": [], "evaluation": None},
+    ]
+    row = aggregate(cells)[0]
+    assert row["accuracy_pct"] == 50.0
+    assert row["mean_latency_ms"] == 400.0
+    assert row["successful_requests"] == 1
