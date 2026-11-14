@@ -33,7 +33,6 @@ def request_json(
     timeout: int = 60,
     max_attempts: int = 4,
 ) -> HttpAudit:
-    started = time.perf_counter()
     started_at = now()
     attempts: list[Attempt] = []
     payload: Any = None
@@ -76,7 +75,9 @@ def request_json(
         status_code=status,
         error=error,
         attempts=attempts,
-        latency_ms=round((time.perf_counter() - started) * 1000),
+        # Latency of the attempt that produced the response. Earlier failed attempts and the backoff
+        # sleeps between them stay in `attempts`, but they are not the duration of the search call.
+        latency_ms=attempts[-1].latency_ms,
         started_at=started_at,
         ended_at=now(),
     )
